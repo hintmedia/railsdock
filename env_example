@@ -1,0 +1,50 @@
+###############################################################################
+############################# General Setup ###################################
+###############################################################################
+
+### Paths #####################################################################
+
+# Point to the path of your applications code on your host
+APP_CODE_PATH_HOST=../
+
+# Point to where the `APP_CODE_PATH_HOST` should be in the container. You may add flags to the path `:cached`, `:delegated`.
+APP_CODE_PATH_CONTAINER=/app:cached
+
+### DRIVERS ###################################################################
+
+# All volumes driver
+VOLUMES_DRIVER=local
+
+### Docker compose files ######################################################
+
+# Select which docker-compose files to include. If using an override append `:docker-compose.example.yml` at the end
+COMPOSE_FILE=docker-compose.yml
+
+# Change the separator from : to ; on Windows
+COMPOSE_PATH_SEPARATOR=:
+
+# Define the prefix of container names. This is useful when there are multiple projects using railsdock
+COMPOSE_PROJECT_NAME=railsdock
+
+###############################################################################
+######################### Containers Customization ############################
+###############################################################################
+
+
+### RUBY ######################################################################
+# Select a Ruby Version of the Ruby container. Accepted values: 2.1-2.5
+
+RUBY_VERSION=2.5
+BUNDLE_JOBS=10
+BUNDLE_RETRY=3
+INSTALL_PG_CLIENT=true
+DATABASE_HOST=postgres
+DATABASE_PASSWORD=
+DATABASE_USER=postgres
+DATABASE_ADAPTER=postgresql
+RAILS_SERVER_PORT=3000
+
+### POSTGRES ##################################################################
+
+POSTGRES_VERSION=9.6
+POSTGRES_PORT=5432
