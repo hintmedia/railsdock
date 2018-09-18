@@ -16,11 +16,11 @@ services:
         - RAILSDOCK_BUNDLE_JOBS=${BUNDLE_JOBS}
         - RAILSDOCK_BUNDLE_RETRY=${BUNDLE_RETRY}
         - INSTALL_PG_CLIENT=${INSTALL_PG_CLIENT}
-      environment:
-        - DATABASE_ADAPTER=${DATABASE_ADAPTER}
-        - DATABASE_USER=${DATABASE_USER}
-        - DATABASE_PASSWORD=${DATABASE_PASSWORD}
-        - DATABASE_HOST=${DATABASE_HOST}
+    environment:
+      - DATABASE_ADAPTER=${DATABASE_ADAPTER}
+      - DATABASE_USER=${DATABASE_USER}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE_HOST=${DATABASE_HOST}
     volumes:
       - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}
       - gems:/gems
@@ -32,9 +32,10 @@ services:
       - postgres
 
   postgres:
-    build: ./postgres
-    args:
-      - POSTGRES_VERSION=${POSTGRES_VERSION}
+    build:
+      context: ./postgres
+      args:
+        - POSTGRES_VERSION=${POSTGRES_VERSION}
     ports:
       - "${POSTGRES_PORT}:5432"
     volumes:
