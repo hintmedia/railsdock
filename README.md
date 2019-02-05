@@ -16,13 +16,13 @@ A generic Dockerized Rails Development Environment
 ### Database
 `psql` is installed by default in the ruby container.
 
-* Import postgres database dump(based on `docker-compose up ruby postgres` has been run at least and a database has been created)
+* Import postgres database dump(This assumes a database has been created)
 
 ```sh
 docker ps | grep app
 docker cp path/to/dump.sql NAME_FROM_PREVIOUS_STEP:dump.sql
 docker-compose down
-docker-compose run app bash #This starts ruby and any dependent containers.
+docker-compose run ruby bash #This starts ruby and any dependent containers.
 
 psql -U postgres -h postgres YOUR_DEV_DATABASE_NAME < dump.sql
 ```
