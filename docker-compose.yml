@@ -5,6 +5,8 @@ volumes:
     driver: ${VOLUMES_DRIVER}
   postgres:
     driver: ${VOLUMES_DRIVER}
+  redis:
+    driver: ${VOLUMES_DRIVER}
 
 services:
 
@@ -40,3 +42,13 @@ services:
       - "${POSTGRES_PORT}:5432"
     volumes:
       - postgres:/var/lib/postgresql/data
+
+  redis:
+    build:
+      context: ./redis
+      args:
+        - REDIS_VERSION=${REDIS_VERSION}
+      ports:
+        - "${REDIS_PORT}:6379"
+      volumes:
+        - redis:/data

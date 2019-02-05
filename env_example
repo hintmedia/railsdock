@@ -48,3 +48,8 @@ RAILS_SERVER_PORT=3000
 
 POSTGRES_VERSION=9.6
 POSTGRES_PORT=5432
+
+### REDIS #####################################################################
+
+REDIS_VERSION=4.0
+REDIS_PORT=6379
