@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install -y \
 
 ENV LANG C.UTF-8
 
- # Point Bundler at /gems. This will cause Bundler to re-use gems that have already been installed on the gems volume
+# Point Bundler at /gems. This will cause Bundler to re-use gems that have already been installed on the gems volume
 ENV BUNDLE_PATH /gems
 ENV BUNDLE_HOME /gems
 
