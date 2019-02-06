@@ -48,7 +48,7 @@ services:
       context: ./redis
       args:
         - REDIS_VERSION=${REDIS_VERSION}
-      ports:
-        - "${REDIS_PORT}:6379"
-      volumes:
-        - redis:/data
+    ports:
+      - "${REDIS_PORT}:6379"
+    volumes:
+      - redis:/data
