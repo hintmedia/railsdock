@@ -5,8 +5,10 @@ A generic Dockerized Rails Development Environment
 ## Setup
 
 * Clone the repo
+* Run `id` and note the `uid` and `gid`
 * Copy `env-example` to `.env`
-* Modify the `.env` to point to host directeries for each service on your machine. It defaults to the repo names at the same directory level as `railsdock`.
+* Update `RUBY_UID` and `RUBY_GID` in the `.env` with the values from previous step
+* Update `APP_CODE_PATH_HOST` to point your Rails app. It defaults to a directory above `railsdock`.
 > Note: only keys that are needed for build or general environment should be added here. All other environment variables should be placed in service specific `.env` files.
 * `docker-compose build` this will take awhile to build images for each service.
 * Bring up the specific services you need for example: `docker-compose up ruby postgres`. `docker-compose config --services` will list currently available services.
