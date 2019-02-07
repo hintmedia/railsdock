@@ -4,11 +4,24 @@ FROM ruby:${RAILSDOCK_RUBY_VERSION}
 
 LABEL maintainer="Nate Vick <nate.vick@hint.io>"
 
+ENV DEBIAN_FRONTEND noninteractive
+
 ###############################################################################
-# Base Software Install and Environment Variables Set
+# Railsdock non-root user
 ###############################################################################
 
-ENV DEBIAN_FRONTEND noninteractive
+ARG UID=1000
+ENV UID ${UID}
+ARG GID=1000
+ENV GID ${GID}
+
+RUN groupadd -g ${GID} ruby && \
+    useradd -u ${UID} -g ruby -m ruby && \
+    usermod -p "*" ruby
+
+###############################################################################
+# Base Software Install
+###############################################################################
 
 RUN apt-get update && apt-get install -y \
     build-essential \
@@ -58,8 +71,12 @@ RUN if [ ${INSTALL_PG_CLIENT} = true ]; then \
 # Final Touches
 ###############################################################################
 
+RUN mkdir -p "$GEM_HOME" && chown ruby:ruby "$GEM_HOME"
+
 RUN mkdir -p /app
 WORKDIR /app
+
+USER ruby
 
 # Install latest bundler
 RUN gem install bundler

@@ -43,6 +43,8 @@ DATABASE_PASSWORD=
 DATABASE_USER=postgres
 DATABASE_ADAPTER=postgresql
 RAILS_SERVER_PORT=3000
+RUBY_UID=1000
+RUBY_GID=1000
 
 ### POSTGRES ##################################################################
 
