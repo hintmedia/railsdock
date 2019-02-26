@@ -7,6 +7,8 @@ volumes:
     driver: ${VOLUMES_DRIVER}
   redis:
     driver: ${VOLUMES_DRIVER}
+  node_modules:
+    driver: ${VOLUMES_DRIVER}
 
 services:
 
@@ -29,6 +31,7 @@ services:
     volumes:
       - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}
       - gems:/gems
+      - node_modules:${APP_CODE_PATH_CONTAINER}/node_modules
     ports:
       - "${RAILS_SERVER_PORT}:3000"
     user: ruby
