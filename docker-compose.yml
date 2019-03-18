@@ -7,6 +7,8 @@ volumes:
     driver: ${VOLUMES_DRIVER}
   redis:
     driver: ${VOLUMES_DRIVER}
+  node_modules:
+    driver: ${VOLUMES_DRIVER}
 
 services:
 
@@ -17,6 +19,7 @@ services:
         - RAILSDOCK_RUBY_VERSION=${RUBY_VERSION}
         - RAILSDOCK_BUNDLE_JOBS=${BUNDLE_JOBS}
         - RAILSDOCK_BUNDLE_RETRY=${BUNDLE_RETRY}
+        - RAILSDOCK_NODE_VERSION=${NODE_VERSION}
         - INSTALL_PG_CLIENT=${INSTALL_PG_CLIENT}
         - UID=${RUBY_UID}
         - GID=${RUBY_GID}
@@ -28,6 +31,7 @@ services:
     volumes:
       - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}
       - gems:/gems
+      - node_modules:${APP_CODE_PATH_CONTAINER}/node_modules
     ports:
       - "${RAILS_SERVER_PORT}:3000"
     user: ruby
