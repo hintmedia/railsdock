@@ -84,6 +84,8 @@ RUN mkdir -p "$GEM_HOME" && chown ruby:ruby "$GEM_HOME"
 RUN mkdir -p /app
 WORKDIR /app
 
+RUN mkdir -p node_modules && chown ruby:ruby node_modules
+
 USER ruby
 
 # Install latest bundler
