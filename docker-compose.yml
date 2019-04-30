@@ -3,16 +3,20 @@ version: '3'
 volumes:
   gems:
     driver: ${VOLUMES_DRIVER}
+  node_modules:
+    driver: ${VOLUMES_DRIVER}
   postgres:
+    driver: ${VOLUMES_DRIVER}
+  mysql:
     driver: ${VOLUMES_DRIVER}
   redis:
     driver: ${VOLUMES_DRIVER}
-  node_modules:
+  memcached:
     driver: ${VOLUMES_DRIVER}
 
 services:
 
-  ruby:
+  rails:
     build:
       context: ./ruby
       args:
@@ -33,7 +37,7 @@ services:
       - gems:/gems
       - node_modules:${APP_CODE_PATH_CONTAINER}/node_modules
     ports:
-      - "${RAILS_SERVER_PORT}:3000"
+      - "${RAILS_SERVER_HOST_PORT}:3000"
     user: ruby
     tty: true
     stdin_open: true
@@ -46,9 +50,21 @@ services:
       args:
         - POSTGRES_VERSION=${POSTGRES_VERSION}
     ports:
-      - "${POSTGRES_PORT}:5432"
+      - "${POSTGRES_HOST_PORT}:5432"
     volumes:
       - postgres:/var/lib/postgresql/data
+
+  mysql:
+    build:
+      context: ./mysql
+      args:
+        - MYSQL_VERSION=${MYSQL_VERSION}
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    ports:
+      - "${MYSQL_HOST_PORT}:3306"
+    volumes:
+      - mysql:/var/lib/mysql
 
   redis:
     build:
@@ -56,6 +72,16 @@ services:
       args:
         - REDIS_VERSION=${REDIS_VERSION}
     ports:
-      - "${REDIS_PORT}:6379"
+      - "${REDIS_HOST_PORT}:6379"
     volumes:
       - redis:/data
+
+  memcached:
+    build:
+      context: ./memcached
+      args:
+        - MEMCACHED_VERSION=${MEMCACHED_VERSION}
+    ports:
+      - "${MEMCACHED_HOST_PORT}:11211"
+    volumes:
+      - memcached:/var/lib/memcached
