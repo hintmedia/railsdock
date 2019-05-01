@@ -1,8 +1,6 @@
-ARG POSTGRES_VERSION
+ARG POSTGRES_VERSION=latest
 
 FROM postgres:${POSTGRES_VERSION}-alpine
-
-LABEL maintainer="Nate Vick nate.vick@hint.io"
 
 CMD ["postgres"]
 
