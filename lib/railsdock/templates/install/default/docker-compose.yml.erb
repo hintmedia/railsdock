@@ -1,0 +1,38 @@
+version: '3'
+
+volumes:
+  gems:
+    driver: ${VOLUMES_DRIVER}
+  node_modules:
+    driver: ${VOLUMES_DRIVER}
+
+services:
+
+  rails:
+    env_file:
+      - ./.env.railsdock
+      - ./.env
+    build:
+      context: <%= dockerfile_dir %>ruby
+      args:
+        - RAILSDOCK_RUBY_VERSION=${RUBY_VERSION}
+        - RAILSDOCK_BUNDLE_JOBS=${BUNDLE_JOBS}
+        - RAILSDOCK_BUNDLE_RETRY=${BUNDLE_RETRY}
+        - RAILSDOCK_NODE_VERSION=${NODE_VERSION}
+        # - INSTALL_PG_CLIENT=${INSTALL_PG_CLIENT}
+        - UID=${RUBY_UID}
+        - GID=${RUBY_GID}
+    environment:
+      - DATABASE_ADAPTER=${DATABASE_ADAPTER}
+      - DATABASE_USER=${DATABASE_USER}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE_HOST=${DATABASE_HOST}
+    volumes:
+      - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}
+      - gems:/gems
+      - node_modules:${APP_CODE_PATH_CONTAINER}/node_modules
+    ports:
+      - "${RAILS_SERVER_HOST_PORT}:3000"
+    user: ruby
+    tty: true
+    stdin_open: true

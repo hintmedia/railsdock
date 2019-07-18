@@ -37,3 +37,7 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/[USERN
 ## Code of Conduct
 
 Everyone interacting in the Railsdock project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/railsdock/blob/master/CODE_OF_CONDUCT.md).
+
+## Copyright
+
+Copyright (c) 2019 Nate Vick. See [MIT License](LICENSE.txt) for further details.

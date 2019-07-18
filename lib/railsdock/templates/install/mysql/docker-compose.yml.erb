@@ -1,0 +1,16 @@
+
+
+  mysql:
+    env_file:
+      - ./.env.railsdock
+      - ./.env
+    build:
+      context: <%= dockerfile_dir %>mysql
+      args:
+        - MYSQL_VERSION=${MYSQL_VERSION}
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    ports:
+      - "${MYSQL_HOST_PORT}:3306"
+    volumes:
+      - mysql:/var/lib/mysql

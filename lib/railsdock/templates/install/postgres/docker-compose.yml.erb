@@ -1,0 +1,14 @@
+
+
+  postgres:
+    env_file:
+      - ./.env.railsdock
+      - ./.env
+    build:
+      context: <%= dockerfile_dir %>postgres
+      args:
+        - POSTGRES_VERSION=${POSTGRES_VERSION}
+    ports:
+      - "${POSTGRES_HOST_PORT}:5432"
+    volumes:
+      - postgres:/var/lib/postgresql/data
