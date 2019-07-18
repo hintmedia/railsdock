@@ -18,9 +18,9 @@ Navigate to your project directory:
 
 Then run:
 
-    ```bash
-    railsdock
-    ```
+```bash
+  railsdock
+```
 
 The gem will then walk you through configuring Docker by asking questions about your environment.
 
