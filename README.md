@@ -1,28 +1,24 @@
 # Railsdock
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/railsdock`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+A command line tool for Dockerizing your Rails development environment.
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'railsdock'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
+Install the gem:
 
     $ gem install railsdock
 
+Navigate to your project directory:
+
+    $ cd /path/to/my/app
+
+And then execute:
+
+   $ railsdock
+
 ## Usage
 
-TODO: Write usage instructions here
+The gem will walk you through configuring Docker by asking questions about your environment.
 
 ## Development
 
@@ -32,12 +28,12 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/railsdock. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/hintmedia/railsdock. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## Code of Conduct
 
-Everyone interacting in the Railsdock project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/railsdock/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the Railsdock project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/hintmedia/railsdock/blob/master/CODE_OF_CONDUCT.md).
 
 ## Copyright
 
-Copyright (c) 2019 Nate Vick. See [MIT License](LICENSE.txt) for further details.
+Copyright (c) 2019 Hint. See [MIT License](LICENSE.txt) for further details.
