@@ -23,7 +23,7 @@ module Railsdock
     # @see http://www.rubydoc.info/gems/tty-command
     #
     # @api public
-    def command(**options)
+    def cmd(**options)
       require 'tty-command'
       TTY::Command.new(options)
     end
