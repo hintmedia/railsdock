@@ -11,6 +11,6 @@
 *.o
 *.a
 mkmf.log
-
+.DS_Store
 # rspec failure tracking
 .rspec_status
