@@ -14,7 +14,7 @@ Navigate to your project directory:
 
 And then execute:
 
-   $ railsdock
+    $ railsdock
 
 ## Usage
 
