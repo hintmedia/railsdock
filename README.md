@@ -12,6 +12,16 @@ Install the gem:
 
     $ gem install railsdock
 
+Or add it to your Gemfile:
+
+```ruby
+gem 'railsdock', require: false, group: :development
+```
+
+Then run:
+
+    $ bundle
+
 ## Usage
 
 Navigate to your project directory:
@@ -20,7 +30,7 @@ Navigate to your project directory:
 
 Then run:
 
-    $ railsdock
+    $ railsdock install
 
 The gem will then walk you through configuring Docker by asking questions about your environment.
 
