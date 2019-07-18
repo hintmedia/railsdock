@@ -1,4 +1,4 @@
-# Railsdock
+![logo](https://raw.githubusercontent.com/hintmedia/railsdock/hint/test/gemify/railsdock.svg)
 
 A command line tool for Dockerizing your Rails development environment.
 
