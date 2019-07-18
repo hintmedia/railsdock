@@ -4,7 +4,7 @@ A command line tool for Dockerizing your Rails development environment.
 
 ## Installation
 
-_This gem depends 
+_Note: This gem depends on [Docker Desktop](https://www.docker.com/products/docker-desktop). Make sure that it is installed before continuing._
 
 Install the gem:
 
@@ -18,9 +18,7 @@ Navigate to your project directory:
 
 Then run:
 
-```bash
-  railsdock
-```
+    $ railsdock
 
 The gem will then walk you through configuring Docker by asking questions about your environment.
 
