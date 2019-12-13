@@ -1,5 +1,5 @@
 require 'railsdock/version'
-require 'railsdock/railsdock'
+require 'railsdock/cli'
 
 module Railsdock
   class Error < StandardError; end
