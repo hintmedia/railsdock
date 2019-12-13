@@ -14,3 +14,7 @@ mkmf.log
 .DS_Store
 # rspec failure tracking
 .rspec_status
+/docker/*
+*.env
+dev-entrypoint
+/docker-compose.*
