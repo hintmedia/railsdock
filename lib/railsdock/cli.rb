@@ -18,15 +18,15 @@ module Railsdock
     end
     map %w[--version -v] => :version
 
-    desc 'install', 'Command description...'
+    desc 'install', 'Install Railsdock in an existing rails application'
     method_option :help, aliases: '-h', type: :boolean,
                          desc: 'Display usage information'
-    def install(*)
+    def install(app_name = nil)
       if options[:help]
         invoke :help, ['install']
       else
         require_relative 'commands/install'
-        Railsdock::Commands::Install.new(options).execute
+        Railsdock::Commands::Install.new(options.merge(app_name: app_name)).execute
       end
     end
   end
