@@ -35,6 +35,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
   spec.extensions    = ['ext/railsdock/extconf.rb']
 
+  spec.add_dependency 'railties', '>= 4.2', '< 6.1'
   spec.add_dependency 'bundler', '~> 2.0'
   spec.add_dependency 'pastel', '~> 0.7.2'
   spec.add_dependency 'thor', '~> 0.20.0'
@@ -54,4 +55,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rake-compiler'
   spec.add_development_dependency 'rspec', '~> 3.0'
+  spec.add_development_dependency 'appraisal', '2.2.0'
+  spec.add_development_dependency 'pry-rails'
 end
