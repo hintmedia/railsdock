@@ -31,15 +31,15 @@ RUN apt-get update && apt-get install -y \
 # Railsdock non-root user
 ###############################################################################
 
-ARG UID=1000
-ENV UID $UID
-ARG GID=1000
-ENV GID $GID
+ARG RUBY_UID
+ENV RUBY_UID $RUBY_UID
+ARG RUBY_GID
+ENV RUBY_GID $RUBY_GID
 ARG USER=ruby
 ENV USER $USER
 
-RUN groupadd -g $GID $USER && \
-    useradd -u $UID -g $USER -m $USER && \
+RUN groupadd -g $RUBY_GID $USER && \
+    useradd -u $RUBY_UID -g $USER -m $USER && \
     usermod -p "*" $USER && \
     usermod -aG sudo $USER && \
     echo "$USER ALL=NOPASSWD: ALL" >> /etc/sudoers.d/50-$USER

@@ -1,17 +1,33 @@
-version: '3'
+version: '3.7'
 
-volumes:
-  gems:
-    driver: ${VOLUMES_DRIVER}
-  node_modules:
-    driver: ${VOLUMES_DRIVER}
+x-ruby: &ruby-base
+  build:
+    context: <%= dockerfile_dir %>ruby
+    args:
+      - RAILSDOCK_RUBY_VERSION=${RUBY_VERSION}
+      - RAILSDOCK_NODE_VERSION=${NODE_VERSION}
+      - INSTALL_PG_CLIENT=${INSTALL_PG_CLIENT}
+      - RUBY_UID=${RUBY_UID}
+      - RUBY_GID=${RUBY_GID}
+  volumes:
+    - .:/app
+    - gems:/gems
+    - node_modules:/app/node_modules
+    - packs:/app/public/packs
+    - rails_cache:/app/tmp/cache
+  tmpfs:
+    - /tmp
+  user: ruby
+  tty: true
+  stdin_open: true
+  depends_on:
+    - postgres
+    - redis
 
 services:
 
   rails:
-    env_file:
-      - ./.env.railsdock
-      - ./.env
+    <<: *ruby-base
     build:
       context: <%= dockerfile_dir %>ruby
       args:
@@ -19,9 +35,9 @@ services:
         - RAILSDOCK_BUNDLE_JOBS=${BUNDLE_JOBS}
         - RAILSDOCK_BUNDLE_RETRY=${BUNDLE_RETRY}
         - RAILSDOCK_NODE_VERSION=${NODE_VERSION}
-        # - INSTALL_PG_CLIENT=${INSTALL_PG_CLIENT}
-        - UID=${RUBY_UID}
-        - GID=${RUBY_GID}
+        - INSTALL_PG_CLIENT=${INSTALL_PG_CLIENT}
+        - RUBY_UID=${RUBY_UID}
+        - RUBY_GID=${RUBY_GID}
     environment:
       - DATABASE_USER=${DATABASE_USER}
       - DATABASE_PASSWORD=${DATABASE_PASSWORD}
@@ -35,3 +51,7 @@ services:
     user: ruby
     tty: true
     stdin_open: true
+
+volumes:
+  gems:
+  node_modules:

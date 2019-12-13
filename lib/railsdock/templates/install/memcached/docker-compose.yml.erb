@@ -1,9 +1,6 @@
 
 
   memcached:
-    env_file:
-      - ./.env.railsdock
-      - ./.env
     build:
       context: <%= dockerfile_dir %>memcached
       args:

@@ -18,8 +18,8 @@ function check_host { ping -q -c1 $HOST_DOMAIN > /dev/null 2>&1; }
 trap unlock_setup HUP INT QUIT KILL TERM EXIT
 
 # 3: Wait for postgres to come up
+echo "DB is not ready, sleeping..."
 until nc -vz postgres 5432; do
-  echo "DB is not ready, sleeping..."
   sleep 1
 done
 echo "DB is ready, starting Rails."
