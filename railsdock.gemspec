@@ -38,7 +38,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'railties', '>= 4.2', '< 6.1'
   spec.add_dependency 'bundler', '~> 2.0'
   spec.add_dependency 'pastel', '~> 0.7.2'
-  spec.add_dependency 'thor', '~> 0.20.0'
+  spec.add_dependency 'thor', '~> 1.0.0'
   spec.add_dependency 'tty-box', '~> 0.4.0'
   spec.add_dependency 'tty-color', '~> 0.4'
   spec.add_dependency 'tty-command', '~> 0.8.0'
