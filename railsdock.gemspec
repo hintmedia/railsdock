@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['kyle@hint.io', 'nate.vick@hint.io']
 
   spec.summary       = 'Docker-ize your Rails project.'
-  spec.description   = 'Write a longer description or delete this line.'
+  spec.description   = 'CLI Application for adding Docker configuration to your Rails application.'
   spec.homepage      = 'https://github.com/hintmedia/railsdock'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either
