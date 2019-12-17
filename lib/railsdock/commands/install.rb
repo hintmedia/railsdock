@@ -2,7 +2,6 @@
 
 require 'ostruct'
 require 'erb'
-require 'rails'
 require_relative '../command'
 require_relative '../logo'
 
@@ -12,25 +11,30 @@ module Railsdock
       OPTIONS_HASH = {
         database: {
           name: 'Database',
-          options: %i[mysql postgres]
+          options: %i[postgres mysql]
         },
         mem_store: {
           name: 'In-Memory Store',
-          options: %i[memcached redis]
+          options: %i[redis memcached]
         }
       }.freeze
 
-      POST_INSTALL_MESSAGE = 'Railsdock successfully installed'.freeze
+      POST_INSTALL_MESSAGE =<<~PIM
+      Railsdock successfully installed
 
-      BASE_TEMPLATE_DIR = './lib/railsdock/templates/install'.freeze
+      Run `docker-compose build` then `docker-compose up` to start your app,
+
+      PIM
+
+      BASE_TEMPLATE_DIR = File.expand_path("#{__dir__}/../templates/install").freeze
 
       def initialize(options)
         @options = options
         @variables = OpenStruct.new(
-          app_name: options[:app_name] || Rails.application.engine_name.gsub(/_application/, ''),
+          app_name: options[:app_name] || get_app_name,
           is_windows?: platform.windows?,
           is_mac?: platform.mac?,
-          uid: cmd.run('id -u')
+          uid: cmd.run('id -u').out.chomp
         )
       end
 
@@ -43,15 +47,21 @@ module Railsdock
           file.copy_file("#{BASE_TEMPLATE_DIR}/#{service}/Dockerfile", [@variables.dockerfile_dir, service, "/Dockerfile"].join)
           inject_driver_config(service)
           append_erb_to_compose_file(service)
+          file.inject_into_file('./docker-compose.yml', "\n  #{service}:", after: "\nvolumes:")
+          append_service_config_to_env(service)
           copy_db_yml("#{BASE_TEMPLATE_DIR}/#{service}/database.yml.erb") if type == :database
         end
-        output.puts Railsdock::POST_INSTALL_MESSAGE
+        output.puts POST_INSTALL_MESSAGE
       end
 
       private
 
+      def get_app_name
+        ::File.open('./config/application.rb').read.match(/module (.+)\s/)[1].downcase
+      end
+
       def copy_db_yml(erb_file)
-        file.copy_file(erb_file, Rails.root.join('config'), context: @variables)
+        file.copy_file(erb_file, './config/database.yml', context: @variables)
       end
 
       def collect_service_selections
@@ -80,9 +90,23 @@ module Railsdock
         template.result(@variables.instance_eval('binding'))
       end
 
+      def create_or_append_to_file(source_path, destination_path)
+        if ::File.exist?(destination_path) && generate_erb(source_path) != ::File.binread(destination_path)
+          file.safe_append_to_file(destination_path, generate_erb(source_path))
+        else
+          file.copy_file(source_path, destination_path, context: @variables)
+        end
+      end
+
       def append_erb_to_compose_file(service)
-        file.append_to_file('./docker-compose.yml') do
+        file.safe_append_to_file('./docker-compose.yml') do
           generate_erb("#{BASE_TEMPLATE_DIR}/#{service}/docker-compose.yml.erb")
+        end
+      end
+
+      def append_service_config_to_env(service)
+        file.safe_append_to_file('./.env') do
+          ::File.binread("#{BASE_TEMPLATE_DIR}/#{service}/#{service}.env")
         end
       end
 
@@ -107,10 +131,10 @@ module Railsdock
           file.copy_file(path, "#{@variables.dockerfile_dir}ruby/Dockerfile", context: @variables)
         when 'docker-compose.yml.erb'
           file.copy_file(path, './docker-compose.yml', context: @variables)
-        when 'example.env.erb'
-          file.append_to_file('./.env', generate_erb("#{BASE_TEMPLATE_DIR}/default/example.env.erb")
+        when 'default.env.erb'
+          create_or_append_to_file(path, './.env')
         else
-          "./#{filename}"
+          file.copy_file(path, "./#{File.basename(path)}", context: @variables)
         end
       end
     end

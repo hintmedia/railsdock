@@ -4,9 +4,8 @@ x-ruby: &ruby-base
   build:
     context: <%= dockerfile_dir %>ruby
     args:
-      - RAILSDOCK_RUBY_VERSION=${RUBY_VERSION}
-      - RAILSDOCK_NODE_VERSION=${NODE_VERSION}
-      - INSTALL_PG_CLIENT=${INSTALL_PG_CLIENT}
+      - RAILSDOCK_RUBY_VERSION=${RAILSDOCK_RUBY_VERSION}
+      - RAILSDOCK_NODE_VERSION=${RAILSDOCK_NODE_VERSION}
       - RUBY_UID=${RUBY_UID}
       - RUBY_GID=${RUBY_GID}
   volumes:
@@ -24,6 +23,10 @@ x-ruby: &ruby-base
     - postgres
     - redis
 
+volumes:
+  gems:
+  node_modules:
+
 services:
 
   rails:
@@ -31,13 +34,8 @@ services:
     build:
       context: <%= dockerfile_dir %>ruby
       args:
-        - RAILSDOCK_RUBY_VERSION=${RUBY_VERSION}
         - RAILSDOCK_BUNDLE_JOBS=${BUNDLE_JOBS}
         - RAILSDOCK_BUNDLE_RETRY=${BUNDLE_RETRY}
-        - RAILSDOCK_NODE_VERSION=${NODE_VERSION}
-        - INSTALL_PG_CLIENT=${INSTALL_PG_CLIENT}
-        - RUBY_UID=${RUBY_UID}
-        - RUBY_GID=${RUBY_GID}
     environment:
       - DATABASE_USER=${DATABASE_USER}
       - DATABASE_PASSWORD=${DATABASE_PASSWORD}
@@ -51,7 +49,3 @@ services:
     user: ruby
     tty: true
     stdin_open: true
-
-volumes:
-  gems:
-  node_modules:
