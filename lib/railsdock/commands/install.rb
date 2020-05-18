@@ -58,6 +58,7 @@ module Railsdock
             inject_db_script_into_entrypoint(service)
           end
         end
+        cmd.run('chmod +x ./dev-entrypoint')
         output.puts POST_INSTALL_MESSAGE
       end
 
