@@ -44,7 +44,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'tty-platform', '~> 0.2.0'
   spec.add_dependency 'tty-prompt', '~> 0.19.0'
 
-  spec.add_development_dependency 'rake'
+  spec.add_development_dependency 'rake', '>= 12.3.3'
   spec.add_development_dependency 'rake-compiler'
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'appraisal', '2.2.0'

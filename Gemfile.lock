@@ -125,7 +125,7 @@ DEPENDENCIES
   appraisal (= 2.2.0)
   pry-rails
   railsdock!
-  rake
+  rake (>= 12.3.3)
   rake-compiler
   rspec (~> 3.0)
 
