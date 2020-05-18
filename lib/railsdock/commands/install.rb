@@ -102,6 +102,7 @@ module Railsdock
         file.safe_append_to_file('./docker-compose.yml') do
           generate_erb("#{BASE_TEMPLATE_DIR}/#{service}/docker-compose.yml.erb")
         end
+        file.inject_into_file('./docker-compose.yml', "    - #{service}\n", after: "depends_on:\n")
       end
 
       def append_service_config_to_env(service)
