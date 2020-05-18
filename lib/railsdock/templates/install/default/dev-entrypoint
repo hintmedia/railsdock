@@ -19,9 +19,6 @@ trap unlock_setup HUP INT QUIT KILL TERM EXIT
 
 # 3: Wait for postgres to come up
 echo "DB is not ready, sleeping..."
-until nc -vz postgres 5432; do
-  sleep 1
-done
 echo "DB is ready, starting Rails."
 
 # 4: Specify a default command, in case it wasn't issued:

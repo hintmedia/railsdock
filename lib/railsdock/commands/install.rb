@@ -11,7 +11,11 @@ module Railsdock
       OPTIONS_HASH = {
         database: {
           name: 'Database',
-          options: %i[postgres mysql]
+          options: %i[postgres mysql],
+          default_port: {
+            postgres: 5432,
+            mysql: 3306
+          }
         },
         mem_store: {
           name: 'In-Memory Store',
@@ -49,7 +53,10 @@ module Railsdock
           append_erb_to_compose_file(service)
           file.inject_into_file('./docker-compose.yml', "\n  #{service}:", after: "\nvolumes:")
           append_service_config_to_env(service)
-          copy_db_yml("#{BASE_TEMPLATE_DIR}/#{service}/database.yml.erb") if type == :database
+          if type == :database
+            copy_db_yml("#{BASE_TEMPLATE_DIR}/#{service}/database.yml.erb")
+            inject_db_script_into_entrypoint(service)
+          end
         end
         output.puts POST_INSTALL_MESSAGE
       end
@@ -64,6 +71,16 @@ module Railsdock
         file.copy_file(erb_file, './config/database.yml', context: @variables)
       end
 
+      def inject_db_script_into_entrypoint(service)
+        file.inject_into_file('./dev-entrypoint', after: "echo \"DB is not ready, sleeping...\"\n") do
+          <<~BASH
+            until nc -vz #{service} #{OPTIONS_HASH[:database][:default_port][service]}; do
+              sleep 1
+            done
+          BASH
+        end
+      end
+
       def collect_service_selections
         prompt.collect do
           OPTIONS_HASH.each do |key, value|
@@ -74,9 +91,9 @@ module Railsdock
 
       def inject_driver_config(service)
         file.inject_into_file('./docker-compose.yml', after: "  node_modules:\n    driver: ${VOLUMES_DRIVER}\n") do
-          <<-YAML
-  #{service}:
-    driver: ${VOLUMES_DRIVER}
+          <<~YAML
+            #{service}:
+              driver: ${VOLUMES_DRIVER}
           YAML
         end
       end
