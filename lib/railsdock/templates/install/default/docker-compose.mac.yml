@@ -1,7 +1,0 @@
-version: '3.7'
-
-services:
-  rails:
-    volumes:
-      - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}:cached
-      - node_modules:${APP_CODE_PATH_CONTAINER}/node_modules:cached
