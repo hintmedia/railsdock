@@ -22,10 +22,10 @@ echo "DB is not ready, sleeping..."
 echo "DB is ready, starting Rails."
 
 # 4: Specify a default command, in case it wasn't issued:
-if [ -z "$1" ]; then set -- rails server -p 3000 -b 0.0.0.0 "$@"; fi
+if [ -z "$1" ]; then set -- bundle exec rails server -p 3000 -b 0.0.0.0 "$@"; fi
 
 # 5: Run the checks only if the app code is going to be executed:
-if [[ "$1" = "rails" ]]
+if [[ "$3" = "rails" ]]
 then
   # Clean up any orphaned lock file
   unlock_setup
@@ -49,7 +49,7 @@ then
   # check if the docker host is running on mac or windows
   if ! check_host; then
     HOST_IP=$(ip route | awk 'NR==1 {print $3}')
-    echo "$HOST_IP $HOST_DOMAIN" >> /etc/hosts
+    echo "$HOST_IP $HOST_DOMAIN" | sudo tee -a /etc/hosts > /dev/null
   fi
 
   # 10: 'Unlock' the setup process:
@@ -58,7 +58,7 @@ then
   # 11: If the command to execute is 'rails server', then we must remove any
   # pid file present. Suddenly killing and removing app containers might leave
   # this file, and prevent rails from starting-up if present:
-  if [[ "$2" = "s" || "$2" = "server" ]]; then rm -rf /app/tmp/pids/server.pid; fi
+  if [[ "$4" = "s" || "$4" = "server" ]]; then rm -rf /app/tmp/pids/server.pid; fi
 fi
 
 # 10: Execute the given or default command:

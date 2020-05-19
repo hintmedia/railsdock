@@ -58,7 +58,7 @@ module Railsdock
             inject_db_script_into_entrypoint(service)
           end
         end
-        cmd.run('chmod +x ./dev-entrypoint')
+        cmd.run('chmod +x ./docker/ruby/entrypoint.sh')
         output.puts POST_INSTALL_MESSAGE
       end
 
@@ -73,7 +73,7 @@ module Railsdock
       end
 
       def inject_db_script_into_entrypoint(service)
-        file.inject_into_file('./dev-entrypoint', after: "echo \"DB is not ready, sleeping...\"\n") do
+        file.inject_into_file('./docker/ruby/entrypoint.sh', after: "echo \"DB is not ready, sleeping...\"\n") do
           <<~BASH
             until nc -vz #{service} #{OPTIONS_HASH[:database][:default_port][service]}; do
               sleep 1
@@ -148,6 +148,8 @@ module Railsdock
         case File.basename(path)
         when 'Dockerfile'
           file.copy_file(path, "#{@variables.dockerfile_dir}ruby/Dockerfile", context: @variables)
+        when 'entrypoint.sh'
+          file.copy_file(path, "#{@variables.dockerfile_dir}ruby/entrypoint.sh", context: @variables)
         when 'docker-compose.yml.erb'
           file.copy_file(path, './docker-compose.yml', context: @variables)
         when 'default.env.erb'
