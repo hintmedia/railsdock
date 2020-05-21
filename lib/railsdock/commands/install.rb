@@ -2,6 +2,7 @@
 
 require 'ostruct'
 require 'erb'
+require 'bundler'
 require_relative '../command'
 require_relative '../logo'
 
@@ -38,7 +39,8 @@ module Railsdock
           app_name: options[:app_name] || get_app_name,
           is_windows?: platform.windows?,
           is_mac?: platform.mac?,
-          uid: cmd.run('id -u').out.chomp
+          uid: cmd.run('id -u').out.chomp,
+          ruby_version: get_ruby_version
         )
       end
 
@@ -66,6 +68,10 @@ module Railsdock
 
       def get_app_name
         ::File.open('./config/application.rb').read.match(/module (.+)\s/)[1].downcase
+      end
+
+      def get_ruby_version
+        ::Bundler.definition.ruby_version.versions[0] || RUBY_VERSION
       end
 
       def copy_db_yml(erb_file)
