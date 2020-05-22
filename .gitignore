@@ -18,4 +18,8 @@ mkmf.log
 *.env
 dev-entrypoint
 /docker-compose.*
+example-app/docker/*
+example-app/*.env
+example-app/dev-entrypoint
+example-app/docker-compose.*
 /*.gem
