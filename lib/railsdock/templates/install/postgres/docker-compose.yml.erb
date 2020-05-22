@@ -5,6 +5,8 @@
       context: <%= dockerfile_dir %>postgres
       args:
         - POSTGRES_VERSION=${POSTGRES_VERSION}
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
     ports:
       - "${POSTGRES_HOST_PORT}:5432"
     volumes:

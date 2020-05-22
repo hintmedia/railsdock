@@ -2,6 +2,7 @@
 
 require 'ostruct'
 require 'erb'
+require 'bundler'
 require_relative '../command'
 require_relative '../logo'
 
@@ -38,7 +39,8 @@ module Railsdock
           app_name: options[:app_name] || get_app_name,
           is_windows?: platform.windows?,
           is_mac?: platform.mac?,
-          uid: cmd.run('id -u').out.chomp
+          uid: cmd.run('id -u').out.chomp,
+          ruby_version: get_ruby_version
         )
       end
 
@@ -58,7 +60,7 @@ module Railsdock
             inject_db_script_into_entrypoint(service)
           end
         end
-        cmd.run('chmod +x ./dev-entrypoint')
+        cmd.run('chmod +x ./docker/ruby/entrypoint.sh')
         output.puts POST_INSTALL_MESSAGE
       end
 
@@ -68,12 +70,16 @@ module Railsdock
         ::File.open('./config/application.rb').read.match(/module (.+)\s/)[1].downcase
       end
 
+      def get_ruby_version
+        ::Bundler.definition.ruby_version.versions[0] || RUBY_VERSION
+      end
+
       def copy_db_yml(erb_file)
         file.copy_file(erb_file, './config/database.yml', context: @variables)
       end
 
       def inject_db_script_into_entrypoint(service)
-        file.inject_into_file('./dev-entrypoint', after: "echo \"DB is not ready, sleeping...\"\n") do
+        file.inject_into_file('./docker/ruby/entrypoint.sh', after: "echo \"DB is not ready, sleeping...\"\n") do
           <<~BASH
             until nc -vz #{service} #{OPTIONS_HASH[:database][:default_port][service]}; do
               sleep 1
@@ -148,6 +154,8 @@ module Railsdock
         case File.basename(path)
         when 'Dockerfile'
           file.copy_file(path, "#{@variables.dockerfile_dir}ruby/Dockerfile", context: @variables)
+        when 'entrypoint.sh'
+          file.copy_file(path, "#{@variables.dockerfile_dir}ruby/entrypoint.sh", context: @variables)
         when 'docker-compose.yml.erb'
           file.copy_file(path, './docker-compose.yml', context: @variables)
         when 'default.env.erb'

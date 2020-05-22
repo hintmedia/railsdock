@@ -10,7 +10,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 # Base Software Install
 ###############################################################################
 
-ARG RAILSDOCK_NODE_VERSION=11
+ARG RAILSDOCK_NODE_VERSION=12
 
 RUN curl -sL https://deb.nodesource.com/setup_$RAILSDOCK_NODE_VERSION.x | bash -
 
@@ -50,8 +50,10 @@ RUN groupadd -g $RUBY_GID $USER && \
 
 ENV LANG C.UTF-8
 
+# Update Rubygems to latest
+RUN gem update --system
+
 # Point Bundler at /gems. This will cause Bundler to re-use gems that have already been installed on the gems volume
-ENV BUNDLE_PATH /gems
 ENV BUNDLE_HOME /gems
 
 # Increase how many threads Bundler uses when installing. Optional!
@@ -67,7 +69,9 @@ ENV GEM_HOME /gems
 ENV GEM_PATH /gems
 
 # Add /gems/bin to the path so any installed gem binaries are runnable from bash.
-ENV PATH /gems/bin:$PATH
+ENV PATH ${GEM_HOME}/bin:${GEM_HOME}/gems/bin:$PATH
+
+RUN unset BUNDLE_PATH && unset BUNDLE_BIN
 
 ###############################################################################
 # Optional Software Install
@@ -89,11 +93,13 @@ RUN if [ "$INSTALL_PG_CLIENT" = true ]; then \
 ###############################################################################
 
 RUN mkdir -p "$GEM_HOME" && chown $USER:$USER "$GEM_HOME"
+RUN mkdir -p /app && chown $USER:$USER /app
 
-RUN mkdir -p /app
 WORKDIR /app
 
 RUN mkdir -p node_modules && chown $USER:$USER node_modules
+RUN mkdir -p public/packs && chown $USER:$USER public/packs
+RUN mkdir -p tmp/cache && chown $USER:$USER tmp/cache
 
 USER $USER
 
