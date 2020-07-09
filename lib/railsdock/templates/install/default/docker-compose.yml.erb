@@ -33,7 +33,7 @@ services:
 
   rails:
     <<: *ruby-base
-    command: rails server -p 3000 -b '0.0.0.0'
+    command: bundle exec rails server -p 3000 -b '0.0.0.0'
     entrypoint: ./docker/ruby/entrypoint.sh
     ports:
       - "${RAILS_SERVER_HOST_PORT}:3000"
