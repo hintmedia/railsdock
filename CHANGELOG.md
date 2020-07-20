@@ -1,0 +1,18 @@
+# Changelog
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
+
+## [Unreleased]
+### Added
+### Changed
+### Deprecated
+### Removed
+### Fixed
+### Security
+
+## [0.3.1] - 07-20-2020
+### Fixed
+- command in docker-compose template [PR21](https://github.com/hintmedia/railsdock/pull/21)
+### Added
+- Initial Changelog
