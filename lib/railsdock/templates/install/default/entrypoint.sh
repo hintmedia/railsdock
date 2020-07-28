@@ -13,6 +13,7 @@ function lock_setup { mkdir -p $APP_TEMP_PATH && touch $APP_SETUP_LOCK; }
 function unlock_setup { rm -rf $APP_SETUP_LOCK; }
 function wait_setup { echo "Waiting for app setup to finish..."; sleep $APP_SETUP_WAIT; }
 function check_host { ping -q -c1 $HOST_DOMAIN > /dev/null 2>&1; }
+function schema_file_exists { [[ -e "db/schema.rb" || -e "db/structure.sql" ]]; }
 
 # 2: 'Unlock' the setup process if the script exits prematurely:
 trap unlock_setup HUP INT QUIT KILL TERM EXIT
@@ -41,9 +42,10 @@ then
 
   yarn install
   # 9: Setup the database if it doesn't
-  if ! rake db:version
-  then
-    rake db:setup
+  if ! schema_file_exists; then
+    bundle exec rake db:create && bundle exec rake db:migrate
+  elif ! rake db:migrate 2> /dev/null; then
+    bundle exec rake db:setup
   fi
 
   # check if the docker host is running on mac or windows
