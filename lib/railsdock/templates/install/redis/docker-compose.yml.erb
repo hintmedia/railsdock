@@ -5,7 +5,5 @@
       context: <%= dockerfile_dir %>redis
       args:
         - REDIS_VERSION=${REDIS_VERSION}
-    ports:
-      - "${REDIS_HOST_PORT}:6379"
     volumes:
       - redis:/data
