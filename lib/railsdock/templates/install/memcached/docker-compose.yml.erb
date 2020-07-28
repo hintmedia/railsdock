@@ -5,7 +5,5 @@
       context: <%= dockerfile_dir %>memcached
       args:
         - MEMCACHED_VERSION=${MEMCACHED_VERSION}
-    ports:
-      - "${MEMCACHED_HOST_PORT}:11211"
     volumes:
       - memcached:/var/lib/memcached
