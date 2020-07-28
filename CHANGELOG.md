@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Deprecated
 ### Removed
 ### Fixed
+- handle new apps with no schema.rb or structure.sql [I22](https://github.com/hintmedia/railsdock/issues/22)
 ### Security
 
 ## [0.3.1] - 07-20-2020
