@@ -4,6 +4,6 @@
     build:
       context: <%= dockerfile_dir %>redis
       args:
-        - REDIS_VERSION=${REDIS_VERSION}
+        - REDIS_VERSION=5
     volumes:
       - redis:/data

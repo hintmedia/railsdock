@@ -4,8 +4,8 @@
     build:
       context: <%= dockerfile_dir %>mysql
       args:
-        - MYSQL_VERSION=${MYSQL_VERSION}
+        - MYSQL_VERSION=5.7
     environment:
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=Password1
     volumes:
       - mysql:/var/lib/mysql

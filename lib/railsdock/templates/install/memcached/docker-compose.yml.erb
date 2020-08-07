@@ -4,6 +4,6 @@
     build:
       context: <%= dockerfile_dir %>memcached
       args:
-        - MEMCACHED_VERSION=${MEMCACHED_VERSION}
+        - MEMCACHED_VERSION=1.5
     volumes:
       - memcached:/var/lib/memcached
