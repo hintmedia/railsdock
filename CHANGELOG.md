@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 ### Changed
 - default to exposing only necessary ports [PR26](https://github.com/hintmedia/railsdock/pull/26)
+- move most config to compose file [PR28](https://github.com/hintmedia/railsdock/pull/28)
 ### Deprecated
 ### Removed
 ### Fixed

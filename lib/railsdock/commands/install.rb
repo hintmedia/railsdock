@@ -54,7 +54,6 @@ module Railsdock
           inject_driver_config(service)
           append_erb_to_compose_file(service)
           file.inject_into_file('./docker-compose.yml', "\n  #{service}:", after: "\nvolumes:")
-          append_service_config_to_env(service)
           if type == :database
             copy_db_yml("#{BASE_TEMPLATE_DIR}/#{service}/database.yml.erb")
             inject_db_script_into_entrypoint(service)
@@ -127,12 +126,6 @@ module Railsdock
           generate_erb("#{BASE_TEMPLATE_DIR}/#{service}/docker-compose.yml.erb")
         end
         file.inject_into_file('./docker-compose.yml', "    - #{service}\n", after: "depends_on:\n")
-      end
-
-      def append_service_config_to_env(service)
-        file.safe_append_to_file('./.env') do
-          ::File.binread("#{BASE_TEMPLATE_DIR}/#{service}/#{service}.env")
-        end
       end
 
       def prompt_for_dockerfile_directory

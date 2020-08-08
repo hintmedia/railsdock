@@ -4,7 +4,7 @@
     build:
       context: <%= dockerfile_dir %>postgres
       args:
-        - POSTGRES_VERSION=${POSTGRES_VERSION}
+        - POSTGRES_VERSION=12
     environment:
       - POSTGRES_HOST_AUTH_METHOD=trust
     volumes:
