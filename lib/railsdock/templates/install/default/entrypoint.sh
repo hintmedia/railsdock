@@ -44,7 +44,7 @@ then
   # 9: Setup the database if it doesn't
   if ! schema_file_exists; then
     bundle exec rake db:create && bundle exec rake db:migrate
-  elif ! rake db:migrate 2> /dev/null; then
+  elif ! bundle exec rake db:migrate 2> /dev/null; then
     bundle exec rake db:setup
   fi
 

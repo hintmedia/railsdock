@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Deprecated
 ### Removed
 ### Fixed
+- a bug that would cause migrations not to run in certain scenarios [I31](https://github.com/hintmedia/railsdock/issues/31) [PR32](https://github.com/hintmedia/railsdock/pull/32)
 ### Security
 
 ## [0.4.0] - 08-08-2020
