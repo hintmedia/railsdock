@@ -53,9 +53,6 @@ ENV LANG C.UTF-8
 # Update Rubygems to latest
 RUN gem update --system
 
-# Point Bundler at /gems. This will cause Bundler to re-use gems that have already been installed on the gems volume
-ENV BUNDLE_HOME /gems
-
 # Increase how many threads Bundler uses when installing. Optional!
 ARG RAILSDOCK_BUNDLE_JOBS=20
 ENV BUNDLE_JOBS $RAILSDOCK_BUNDLE_JOBS
@@ -70,8 +67,6 @@ ENV GEM_PATH /gems
 
 # Add /gems/bin to the path so any installed gem binaries are runnable from bash.
 ENV PATH ${GEM_HOME}/bin:${GEM_HOME}/gems/bin:$PATH
-
-RUN unset BUNDLE_PATH && unset BUNDLE_BIN
 
 ###############################################################################
 # Optional Software Install
