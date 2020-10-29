@@ -6,8 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 ### Added
 ### Changed
+- move unset of Bundler env vars to entrypoint [PR34](https://github.com/hintmedia/railsdock/pull/34)
 ### Deprecated
 ### Removed
+- BUNDLE_HOME is no longer a Bundler env var [PR34](https://github.com/hintmedia/railsdock/pull/34)
 ### Fixed
 - a bug that would cause migrations not to run in certain scenarios [I31](https://github.com/hintmedia/railsdock/issues/31) [PR32](https://github.com/hintmedia/railsdock/pull/32)
 ### Security
