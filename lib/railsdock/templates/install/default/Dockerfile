@@ -61,7 +61,7 @@ ENV BUNDLE_JOBS $RAILSDOCK_BUNDLE_JOBS
 ARG RAILSDOCK_BUNDLE_RETRY=5
 ENV BUNDLE_RETRY $RAILSDOCK_BUNDLE_RETRY
 
-# Where Rubygems will look for gems, similar to BUNDLE_ equivalents.
+# Where Rubygems will look for gems.
 ENV GEM_HOME /gems
 ENV GEM_PATH /gems
 
