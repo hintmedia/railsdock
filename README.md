@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/hintmedia/railsdock/railsdock.png" alt="Railsdock Logo" background>
+  <img src="https://github.com/hintmedia/railsdock/raw/master/railsdock.png" alt="Railsdock Logo" background>
 </p>
 
 A command line tool for Dockerizing your Rails development environment.
