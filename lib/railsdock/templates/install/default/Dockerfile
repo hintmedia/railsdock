@@ -1,8 +1,8 @@
-ARG RAILSDOCK_RUBY_VERSION=2.6
+ARG RAILSDOCK_RUBY_VERSION=3.1
 
 FROM ruby:$RAILSDOCK_RUBY_VERSION
 
-LABEL maintainer="Nate Vick <nate.vick@hint.io>"
+LABEL maintainer="Your Name <your.email@hint.io>"
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -10,7 +10,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 # Base Software Install
 ###############################################################################
 
-ARG RAILSDOCK_NODE_VERSION=12
+ARG RAILSDOCK_NODE_VERSION=16
 
 RUN curl -sL https://deb.nodesource.com/setup_$RAILSDOCK_NODE_VERSION.x | bash -
 
