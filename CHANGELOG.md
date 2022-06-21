@@ -3,11 +3,19 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [Unreleased]
+## Unreleased
 ### Added
 ### Changed
-- move unset of Bundler env vars to entrypoint [PR34](https://github.com/hintmedia/railsdock/pull/34)
 ### Deprecated
+### Removed
+### Fixed
+### Security
+
+## [0.5.0]
+### Added
+- support for Rails 7.0 [PR84](https://github.com/hintmedia/railsdock/pull/84)
+### Changed
+- move unset of Bundler env vars to entrypoint [PR34](https://github.com/hintmedia/railsdock/pull/34)
 ### Removed
 - BUNDLE_HOME is no longer a Bundler env var [PR34](https://github.com/hintmedia/railsdock/pull/34)
 ### Fixed
