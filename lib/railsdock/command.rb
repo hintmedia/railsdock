@@ -23,9 +23,9 @@ module Railsdock
     # @see http://www.rubydoc.info/gems/tty-command
     #
     # @api public
-    def cmd(**options)
+    def cmd
       require 'tty-command'
-      TTY::Command.new(options)
+      TTY::Command.new
     end
 
     # File manipulation utility methods.
@@ -53,9 +53,9 @@ module Railsdock
     # @see http://www.rubydoc.info/gems/tty-prompt
     #
     # @api public
-    def prompt(**options)
+    def prompt
       require 'tty-prompt'
-      TTY::Prompt.new(options)
+      TTY::Prompt.new
     end
 
     def color
