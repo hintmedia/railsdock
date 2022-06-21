@@ -5,7 +5,7 @@ x-ruby: &ruby-base
     context: <%= dockerfile_dir %>ruby
     args:
       - RAILSDOCK_RUBY_VERSION=<%= ruby_version %>
-      - RAILSDOCK_NODE_VERSION=12
+      - RAILSDOCK_NODE_VERSION=16
       - RAILSDOCK_BUNDLE_JOBS=10
       - RAILSDOCK_BUNDLE_RETRY=3
       - RUBY_UID=${RUBY_UID}
