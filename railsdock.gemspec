@@ -35,18 +35,18 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
   spec.extensions    = ['ext/railsdock/extconf.rb']
 
-  spec.add_dependency 'railties', '>= 4.2', '< 6.1'
+  spec.add_dependency 'railties', '>= 4.2', '< 7.1'
   spec.add_dependency 'bundler', '~> 2.0'
-  spec.add_dependency 'pastel', '~> 0.7.2'
-  spec.add_dependency 'thor', '~> 1.0.0'
-  spec.add_dependency 'tty-command', '~> 0.8.0'
-  spec.add_dependency 'tty-file', '~> 0.7.0'
-  spec.add_dependency 'tty-platform', '~> 0.2.0'
-  spec.add_dependency 'tty-prompt', '~> 0.19.0'
+  spec.add_dependency 'pastel', '~> 0.7'
+  spec.add_dependency 'thor', '~> 1.0'
+  spec.add_dependency 'tty-command', '~> 0.10'
+  spec.add_dependency 'tty-file', '~> 0.10'
+  spec.add_dependency 'tty-platform', '~> 0.3'
+  spec.add_dependency 'tty-prompt', '~> 0.19'
 
   spec.add_development_dependency 'rake', '>= 12.3.3'
   spec.add_development_dependency 'rake-compiler'
-  spec.add_development_dependency 'rspec', '~> 3.0'
-  spec.add_development_dependency 'appraisal', '2.2.0'
+  spec.add_development_dependency 'rspec', '~> 3'
+  spec.add_development_dependency 'appraisal', '2.2'
   spec.add_development_dependency 'pry-rails'
 end
