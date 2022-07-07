@@ -10,6 +10,7 @@ x-ruby: &ruby-base
       - RAILSDOCK_BUNDLE_RETRY=3
       - RUBY_UID=${RUBY_UID}
       - RUBY_GID=${RUBY_GID}
+  image: <%= app_name %>:1.0.0
   volumes:
     - .:/app:cached
     - gems:/gems

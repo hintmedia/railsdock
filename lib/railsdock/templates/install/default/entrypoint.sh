@@ -63,8 +63,5 @@ then
   if [[ "$4" = "s" || "$4" = "server" ]]; then rm -rf /app/tmp/pids/server.pid; fi
 fi
 
-unset BUNDLE_PATH
-unset BUNDLE_BIN
-
 # 10: Execute the given or default command:
 exec "$@"

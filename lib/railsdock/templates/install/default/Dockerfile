@@ -31,6 +31,8 @@ RUN apt-get update && apt-get install -y \
 # Railsdock non-root user
 ###############################################################################
 
+RUN echo "unset BUNDLE_PATH" >> /etc/bash.bashrc
+
 ARG RUBY_UID
 ENV RUBY_UID $RUBY_UID
 ARG RUBY_GID
@@ -62,8 +64,8 @@ ARG RAILSDOCK_BUNDLE_RETRY=5
 ENV BUNDLE_RETRY $RAILSDOCK_BUNDLE_RETRY
 
 # Where Rubygems will look for gems.
-ENV GEM_HOME /gems
-ENV GEM_PATH /gems
+ENV GEM_HOME /gems/${RAILSDOCK_RUBY_VERSION}
+ENV GEM_PATH ${GEM_HOME}
 
 # Add /gems/bin to the path so any installed gem binaries are runnable from bash.
 ENV PATH ${GEM_HOME}/bin:${GEM_HOME}/gems/bin:$PATH
@@ -87,7 +89,7 @@ RUN if [ "$INSTALL_PG_CLIENT" = true ]; then \
 # Final Touches
 ###############################################################################
 
-RUN mkdir -p "$GEM_HOME" && chown $USER:$USER "$GEM_HOME"
+RUN mkdir -p /gems && chown $USER:$USER /gems
 RUN mkdir -p /app && chown $USER:$USER /app
 
 WORKDIR /app
